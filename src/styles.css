@@ -1,0 +1,102 @@
+* {
+	--main-color: #46d6f0;
+	--nav-color: #9ff1f1;
+	--secondary-color: #7fdddd;
+	--card-color: #bbfa80;
+	--button-color: #7fdddd;
+}
+
+body {
+	margin: 0;
+	display: grid;
+	grid-template-columns: 1fr 10fr;
+	grid-template-rows: 1fr 8fr;
+
+	width: 100vw;
+	height: 100vh;
+}
+
+.header {
+	background-color: var(--secondary-color);
+	grid-column: 1 / -1;
+}
+
+.nav-bar {
+	grid-column: 1 / 2;
+	grid-row: 2 / -1;
+	background-color: var(--nav-color);
+
+	position: sticky;
+	top: 20px;
+
+	padding: 15px;
+}
+
+.content {
+	background-color: var(--main-color);
+	padding: 10px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	justify-content: space-between;
+	gap: 25px;
+
+	height: 90%;
+}
+
+.categories {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	font-size: 1.5em;
+	
+}
+
+.categories button {
+	background-color: var(--button-color);
+	font-size: 1.2em;
+}
+
+.highlight {
+	box-shadow: -5px 5px black;
+}
+
+.add-category {
+	font-size: 1.4em;
+	width: clamp(100px, 80%, 90%);
+
+	padding: 0;
+
+	background-color: var(--button-color);
+	border-radius: 12px;
+}
+
+.list {
+	padding: 25px;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 50px;
+
+	align-items: center;
+	justify-content: center;
+
+	overflow: auto
+}
+
+.todo-item {
+	background-color: var(--card-color);
+}
+
+.add-item {
+	background-color: var(--button-color);
+	border-radius: 12px;
+	font-size: 1.5em;
+	position: absolute;
+	bottom: 50px;
+	right: 50px;
+	
+}
