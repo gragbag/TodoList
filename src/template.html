@@ -13,16 +13,64 @@
 		<h2>Navigate</h2>
 		<div class="buttons">
 			<div class="categories">
-				<button class="projects highlight">Projects</button>
-				<button class="events">Events</button>
-				<button class="general">General</button>
+				<button class="highlight">Projects</button>
+				<button>Events</button>
+				<button>General</button>
 			</div>
 
-			<button class="add-category">New Category</button>
+			
 		</div>
 	</nav>
+
+	<dialog id="category-dialog">
+		<form id="category-form">
+			<button id="close-category-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<h2 id="dialogid">Add A New Category </h2>
+			<field class="add-name">
+				<input type="name" name="name" id="name" placeholder="Category Name" maxlength="15" required>
+			</field>
+		   
+			<button type="submit" class="submit-category">Add Category</button>
+	  </form>
+	</dialog>
+
+	<dialog id="item-dialog">
+		<form id="item-form">
+			<button id="close-item-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<h2 id="dialogid">Add A New Todo Item </h2>
+			<field class="add-name">
+				<label for="title">Title: </label>
+				<input type="text" name="title" id="title" maxlength="15" required>
+			</field>
+			<field class="add-description">
+				<label for="description">Description: </label>
+				<textarea name="description" id="description" rows="2" cols="50" maxlength="100"></textarea>
+				
+			</field>
+			<field class="add-duedate">
+				<label for="duedate">Due Date: </label>
+				<input type="text" name="duedate" id="duedate" required>
+			</field>
+			<field class="add-priority">
+				<label for="priority">Priority: </label>
+				<select name="priority" id="priority">
+					<option value="High">High</option>
+					<option value="Medium">Medium</option>
+					<option value="Low">Low</option>
+				</select>
+			</field>
+		   
+			<button type="submit" class="submit-category">Add Category</button>
+	  </form>
+	</dialog>
+
 	<div class="content">
+		<div class="add-buttons">
+			<button class="add-category">New Category</button>
+			<button class="add-item">Add Item</button>
+		</div>
 		
+
 		<div class="list">
 			<div class="todo-item">
 				<h2 class="title">Project</h2>
@@ -36,21 +84,10 @@
 				<p class="target-date">Target Date</p>
 				<p class="priority">1</p>
 			</div>
-			<div class="todo-item">
-				<h2 class="title">Project</h2>
-				<p class="desc">desc</p>
-				<p class="target-date">Target Date</p>
-				<p class="priority">1</p>
-			</div>
-			<div class="todo-item">
-				<h2 class="title">Project</h2>
-				<p class="desc">desc</p>
-				<p class="target-date">Target Date</p>
-				<p class="priority">1</p>
-			</div>
+			
 		</div>
 
-		<button class="add-item">Add Item</button>
+		
 	</div>
 </body>
 </html>

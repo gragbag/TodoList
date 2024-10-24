@@ -10,10 +10,11 @@ body {
 	margin: 0;
 	display: grid;
 	grid-template-columns: 1fr 10fr;
-	grid-template-rows: 1fr 8fr;
+	grid-template-rows: 1fr 10fr;
 
 	width: 100vw;
 	height: 100vh;
+	overflow: hidden;
 }
 
 .header {
@@ -52,13 +53,14 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
-	font-size: 1.5em;
 	
+	overflow-y: auto;
 }
 
 .categories button {
 	background-color: var(--button-color);
 	font-size: 1.2em;
+	flex: 1;
 }
 
 .highlight {
@@ -67,36 +69,49 @@ body {
 
 .add-category {
 	font-size: 1.4em;
-	width: clamp(100px, 80%, 90%);
-
 	padding: 0;
-
 	background-color: var(--button-color);
 	border-radius: 12px;
 }
 
+.add-buttons {
+	display: flex;
+	gap: 25px;
+	margin-bottom: 25px;
+}
+
 .list {
-	padding: 25px;
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 
-	align-items: center;
-	justify-content: center;
-
-	overflow: auto
+	height: 80%;
+	overflow-y: auto;
 }
 
 .todo-item {
 	background-color: var(--card-color);
+	display: flex;
+	gap: 25px;
+	align-items: center;
+	border-radius: 24px;
+	height: 5vh;
+	padding: 0 10px;
 }
 
 .add-item {
 	background-color: var(--button-color);
 	border-radius: 12px;
 	font-size: 1.5em;
-	position: absolute;
-	bottom: 50px;
-	right: 50px;
-	
+}
+
+#item-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+textarea {
+	resize: none;
 }
