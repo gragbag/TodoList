@@ -17,6 +17,10 @@ body {
 	overflow: hidden;
 }
 
+button {
+	padding: 0;
+}
+
 .header {
 	background-color: var(--secondary-color);
 	grid-column: 1 / -1;
@@ -57,14 +61,18 @@ body {
 	overflow-y: auto;
 }
 
-.categories button {
-	background-color: var(--button-color);
-	font-size: 1.2em;
-	flex: 1;
+.category {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.category-name {
+	background-color: var(--secondary-color);
 }
 
 .highlight {
-	box-shadow: -5px 5px black;
+	background-color: rgb(24, 233, 24);
 }
 
 .add-category {
@@ -97,6 +105,24 @@ body {
 	border-radius: 24px;
 	height: 5vh;
 	padding: 0 10px;
+}
+
+.todo-item .item-buttons {
+	display: flex;
+	margin-left: auto;
+	gap: 25px;
+}
+
+.expand {
+	background-color: rgb(248, 212, 212);
+}
+
+.edit {
+	background-color: rgb(236, 160, 160);
+}
+
+.delete {
+	background-color: rgb(235, 92, 92);
 }
 
 .add-item {

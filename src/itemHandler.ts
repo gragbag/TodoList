@@ -69,7 +69,22 @@ function displayItem(item: Item) {
 	prio.innerText = item.priority;
 	prio.className = "priority";
 
-	todoItem.append(title, desc, date, prio);
+	const itemButtons = document.createElement("div");
+	itemButtons.className = "item-buttons";
+	const expandButton = document.createElement("button");
+	expandButton.className = "expand";
+	expandButton.innerHTML = `<i class="fa-solid fa-chevron-down"></i>`
+
+	const editButton = document.createElement("button");
+	editButton.className = "edit";
+	editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`
+
+	const deleteButton = document.createElement("button");
+	deleteButton.className = "delete";
+	deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`
+
+	itemButtons.append(expandButton, editButton, deleteButton);
+	todoItem.append(title, desc, date, prio, itemButtons);
 	list.appendChild(todoItem);
 }
 

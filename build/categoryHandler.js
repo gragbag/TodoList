@@ -28,8 +28,18 @@ function addCategory(categoryName) {
         return;
     }
     const categories = document.querySelector(".categories");
-    const category = document.createElement("button");
-    category.innerText = categoryName;
+    const category = document.createElement("div");
+    category.className = "category";
+    const categoryTitle = document.createElement("button");
+    categoryTitle.className = "category-name";
+    categoryTitle.innerText = categoryName;
+    const editButton = document.createElement("button");
+    editButton.className = "edit";
+    editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete";
+    deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    category.append(categoryTitle, editButton, deleteButton);
     categories.appendChild(category);
     currentCategories++;
 }

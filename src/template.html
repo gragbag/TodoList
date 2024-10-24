@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Todo List</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 	<div class="header">
@@ -13,9 +14,22 @@
 		<h2>Navigate</h2>
 		<div class="buttons">
 			<div class="categories">
-				<button class="highlight">Projects</button>
-				<button>Events</button>
-				<button>General</button>
+				<div class="category">
+					<button class="highlight category-name">Projects</button>
+					<button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+					<button class="delete"><i class="fa-solid fa-trash"></i></button>
+				</div>
+				
+				<div class="category">
+					<button class="category-name">Events</button>
+					<button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+					<button class="delete"><i class="fa-solid fa-trash"></i></button>
+				</div>
+				
+				<div class="category">
+					<button class="category-name">General</button>
+				</div>
+				
 			</div>
 
 			
@@ -77,6 +91,12 @@
 				<p class="desc">desc</p>
 				<p class="target-date">Target Date</p>
 				<p class="priority">1</p>
+				<div class="item-buttons">
+					<button class="expand"><i class="fa-solid fa-chevron-down"></i></button>
+					<button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+					<button class="delete"><i class="fa-solid fa-trash"></i></button>
+				</div>
+				
 			</div>
 			<div class="todo-item">
 				<h2 class="title">Project</h2>
