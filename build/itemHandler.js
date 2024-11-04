@@ -7,6 +7,8 @@ const addItemForm = document.querySelector("#item-form");
 const closeForm = document.querySelector("#close-item-dialog");
 const editItemDialog = document.querySelector("#edit-item-dialog");
 const editItemForm = document.querySelector("#edit-item-form");
+const deleteDialog = document.querySelector("#confirm-delete");
+const deleteForm = document.querySelector("#delete-form");
 const itemList = [];
 class Item {
     constructor(title, description, duedate, priority) {
@@ -30,10 +32,22 @@ function setupAddItems() {
         const newItem = new Item(title.value, description.value, duedate.value, priority.value);
         itemList.push(newItem);
         displayItem(newItem);
+        addItemForm.reset();
+    });
+    addItemDialog.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            e.preventDefault();
+        }
     });
     closeForm.addEventListener("click", (e) => {
         e.preventDefault();
         addItemDialog.close();
+        addItemForm.reset();
+    });
+    editItemDialog.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            e.preventDefault();
+        }
     });
 }
 function displayItem(item) {
@@ -65,6 +79,7 @@ function displayItem(item) {
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete";
     deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    addDeleteFunction(deleteButton);
     itemButtons.append(expandButton, editButton, deleteButton);
     todoItem.append(title, desc, date, prio, itemButtons);
     list.appendChild(todoItem);
@@ -91,6 +106,13 @@ function addEditFunction(editButton) {
         editItemDialog.showModal();
         editItemForm.addEventListener("submit", function edit(e) {
             e.preventDefault();
+            editItemDialog.close();
+            editItemForm.removeEventListener("submit", edit);
+            const submittedButton = e.submitter;
+            if (submittedButton.value === "close") {
+                editItemForm.reset();
+                return;
+            }
             title.innerText = editTitle.value;
             description.innerText = editDescription.value;
             duedate.innerText = editDuedate.value;
@@ -104,9 +126,35 @@ function addEditFunction(editButton) {
                 item.duedate = editDuedate.value;
                 item.priority = editPriority.value;
             }
-            editItemDialog.close();
             editItemForm.reset();
-            editItemForm.removeEventListener("submit", edit);
         });
+    });
+}
+function addDeleteFunction(deleteButton) {
+    deleteButton.addEventListener("click", (e) => {
+        deleteDialog.showModal();
+        deleteForm.addEventListener("submit", function deleteItem(e) {
+            var _a;
+            e.preventDefault();
+            deleteDialog.close();
+            const submittedButton = e.submitter;
+            if (submittedButton && submittedButton.value === "confirm") {
+                const parent = (_a = deleteButton.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
+                const parentIndex = parent === null || parent === void 0 ? void 0 : parent.dataset.index;
+                if (parentIndex) {
+                    const index = parseInt(parentIndex);
+                    itemList.splice(index, 1);
+                }
+                parent === null || parent === void 0 ? void 0 : parent.remove();
+                assignIndices();
+            }
+            deleteForm.removeEventListener("submit", deleteItem);
+        });
+    });
+}
+function assignIndices() {
+    const items = document.querySelectorAll(".todo-item");
+    items.forEach((item, newIndex) => {
+        item.dataset.index = newIndex.toString();
     });
 }

@@ -22,10 +22,22 @@ function setupAddCategoryButton() {
 		addCategory(category.value);
 		addCategoryForm.reset();
 	})
+
+	addCategoryDialog.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			e.preventDefault();
+		}
+	})
 	
 	closeDialogButton.addEventListener("click", (e) => {
 		e.preventDefault();
 		addCategoryDialog.close();
+	})
+
+	editCategoryDialog.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			e.preventDefault();
+		}
 	})
 
 }
@@ -68,6 +80,13 @@ function addEditFunction(editButton: HTMLButtonElement) {
 		editCategoryForm.addEventListener("submit", function changeName(e) {
 			e.preventDefault();
 			editCategoryDialog.close();
+			editCategoryForm.removeEventListener("submit", changeName);
+
+			const submittedButton = e.submitter as HTMLButtonElement;
+			if (submittedButton.value === "close") {
+				editCategoryForm.reset();
+				return;
+			}
 
 			const input = document.querySelector("#new-name") as HTMLInputElement;
 			const newName: string = input.value; 
@@ -81,7 +100,7 @@ function addEditFunction(editButton: HTMLButtonElement) {
 			}
 			
 
-			editCategoryForm.removeEventListener("submit", changeName);
+			
 			editCategoryForm.reset();
 		});
 
@@ -95,7 +114,6 @@ function addDeleteFunction(deleteButton: HTMLButtonElement) {
 
 		deleteCategoryForm.addEventListener("submit", function confirmDelete(e) {
 			e.preventDefault();
-			console.log(e.submitter);
 			const submittedButton = e.submitter as HTMLButtonElement;
 
 			if (submittedButton && submittedButton.value === "confirm") {

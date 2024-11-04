@@ -6,6 +6,8 @@ const addItemForm = document.querySelector("#item-form") as HTMLFormElement;
 const closeForm = document.querySelector("#close-item-dialog") as HTMLButtonElement;
 const editItemDialog = document.querySelector("#edit-item-dialog") as HTMLDialogElement;
 const editItemForm = document.querySelector("#edit-item-form") as HTMLFormElement;
+const deleteDialog = document.querySelector("#confirm-delete") as HTMLDialogElement;
+const deleteForm = document.querySelector("#delete-form") as HTMLFormElement;
 
 const itemList: Item[] = [];
 
@@ -40,11 +42,25 @@ function setupAddItems() {
 		const newItem = new Item(title.value, description.value, duedate.value, priority.value);
 		itemList.push(newItem);
 		displayItem(newItem);
+		addItemForm.reset();
+	})
+
+	addItemDialog.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			e.preventDefault();
+		}
 	})
 
 	closeForm.addEventListener("click", (e) => {
 		e.preventDefault();
 		addItemDialog.close();
+		addItemForm.reset();
+	})
+
+	editItemDialog.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			e.preventDefault();
+		}
 	})
 }
 
@@ -85,6 +101,7 @@ function displayItem(item: Item) {
 	const deleteButton = document.createElement("button");
 	deleteButton.className = "delete";
 	deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`
+	addDeleteFunction(deleteButton);
 
 	itemButtons.append(expandButton, editButton, deleteButton);
 	todoItem.append(title, desc, date, prio, itemButtons);
@@ -118,12 +135,19 @@ function addEditFunction(editButton: HTMLButtonElement) {
 
 		editItemForm.addEventListener("submit", function edit(e) {
 			e.preventDefault();
+			editItemDialog.close();
+			editItemForm.removeEventListener("submit", edit);
+			
+			const submittedButton = e.submitter as HTMLButtonElement;
+			if (submittedButton.value === "close") {
+				editItemForm.reset();
+				return;
+			}
+
 			title.innerText = editTitle.value;
 			description.innerText = editDescription.value;
 			duedate.innerText = editDuedate.value;
 			priority.innerText = editPriority.value;
-
-			
 
 			const parentIndex = parent.dataset.index;
 			if (parentIndex) {
@@ -136,12 +160,43 @@ function addEditFunction(editButton: HTMLButtonElement) {
 				item.priority = editPriority.value;
 			}
 
-			editItemDialog.close();
 			editItemForm.reset();
-			editItemForm.removeEventListener("submit", edit);
 			
 		})
+	})
+}
 
+function addDeleteFunction(deleteButton: HTMLButtonElement) {
+	deleteButton.addEventListener("click", (e) => {
+		deleteDialog.showModal();
+
+		deleteForm.addEventListener("submit", function deleteItem(e) {
+			e.preventDefault();
+			deleteDialog.close();
+
+			const submittedButton = e.submitter as HTMLButtonElement;
+
+			if (submittedButton && submittedButton.value === "confirm") {
+				const parent = deleteButton.parentElement?.parentElement;
+				const parentIndex = parent?.dataset.index;
+				if (parentIndex) {
+					const index = parseInt(parentIndex);
+					itemList.splice(index, 1);
+				}
+				
+				parent?.remove();
+				assignIndices();
+			}
+
+			deleteForm.removeEventListener("submit", deleteItem);
+		})
+	})
+}
+
+function assignIndices() {
+	const items = document.querySelectorAll<HTMLDivElement>(".todo-item");
+	items.forEach((item, newIndex) => {
+		item.dataset.index = newIndex.toString();
 	})
 }
 

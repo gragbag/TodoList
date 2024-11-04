@@ -22,9 +22,19 @@ function setupAddCategoryButton() {
         addCategory(category.value);
         addCategoryForm.reset();
     });
+    addCategoryDialog.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            e.preventDefault();
+        }
+    });
     closeDialogButton.addEventListener("click", (e) => {
         e.preventDefault();
         addCategoryDialog.close();
+    });
+    editCategoryDialog.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            e.preventDefault();
+        }
     });
 }
 function addCategory(categoryName) {
@@ -55,6 +65,12 @@ function addEditFunction(editButton) {
         editCategoryForm.addEventListener("submit", function changeName(e) {
             e.preventDefault();
             editCategoryDialog.close();
+            editCategoryForm.removeEventListener("submit", changeName);
+            const submittedButton = e.submitter;
+            if (submittedButton.value === "close") {
+                editCategoryForm.reset();
+                return;
+            }
             const input = document.querySelector("#new-name");
             const newName = input.value;
             if (newName) {
@@ -64,7 +80,6 @@ function addEditFunction(editButton) {
                     oldName.innerText = newName;
                 }
             }
-            editCategoryForm.removeEventListener("submit", changeName);
             editCategoryForm.reset();
         });
     });
@@ -74,7 +89,6 @@ function addDeleteFunction(deleteButton) {
         deleteCategoryDialog.showModal();
         deleteCategoryForm.addEventListener("submit", function confirmDelete(e) {
             e.preventDefault();
-            console.log(e.submitter);
             const submittedButton = e.submitter;
             if (submittedButton && submittedButton.value === "confirm") {
                 const parent = deleteButton.parentElement;

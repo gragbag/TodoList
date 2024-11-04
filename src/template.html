@@ -38,7 +38,7 @@
 
 	<dialog id="category-dialog">
 		<form id="category-form">
-			<button id="close-category-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<button id="close-category-dialog" value="close" type="submit">X</button>
 			<h2>Add A New Category </h2>
 			<field class="add-name">
 				<input type="name" name="name" id="name" placeholder="Category Name" maxlength="15" required>
@@ -50,7 +50,7 @@
 
 	<dialog id="item-dialog">
 		<form id="item-form">
-			<button id="close-item-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<button id="close-item-dialog" value="close" type="submit">X</button>
 			<h2>Add A New Todo Item </h2>
 			<field class="add-name">
 				<label for="title">Title: </label>
@@ -74,13 +74,13 @@
 				</select>
 			</field>
 		   
-			<button type="submit" class="submit-category">Add Category</button>
+			<button type="submit" class="submit-category">Add Item</button>
 	  </form>
 	</dialog>
 
 	<dialog id="edit-category">
 		<form id="category-edit-form">
-			<button id="close-edit-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<button id="close-edit-category-dialog" value="close" type="submit">X</button>
 			<h2">Select A New Name</h2>
 			<field class="add-name">
 				<input type="name" name="new-name" id="new-name" placeholder="Category Name" minlength="1" maxlength="15" required>
@@ -103,7 +103,7 @@
 
 	<dialog id="edit-item-dialog">
 		<form id="edit-item-form">
-			<button id="close-item-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<button id="close-edit-item-dialog" value="close" type="submit">X</button>
 			<h2>Edit This Item</h2>
 			<field class="edit-name">
 				<label for="new-title">Title: </label>
