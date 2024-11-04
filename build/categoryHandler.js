@@ -7,6 +7,10 @@ const addCategoryButton = document.querySelector(".add-category");
 const addCategoryDialog = document.querySelector("#category-dialog");
 const addCategoryForm = document.querySelector("#category-form");
 const closeDialogButton = document.querySelector("#close-category-dialog");
+const editCategoryDialog = document.querySelector("#edit-category");
+const editCategoryForm = document.querySelector("#category-edit-form");
+const deleteCategoryDialog = document.querySelector("#confirm-delete");
+const deleteCategoryForm = document.querySelector("#delete-form");
 function setupAddCategoryButton() {
     addCategoryButton.addEventListener("click", () => {
         addCategoryDialog.showModal();
@@ -36,10 +40,49 @@ function addCategory(categoryName) {
     const editButton = document.createElement("button");
     editButton.className = "edit";
     editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+    addEditFunction(editButton);
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete";
     deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    addDeleteFunction(deleteButton);
     category.append(categoryTitle, editButton, deleteButton);
     categories.appendChild(category);
     currentCategories++;
+}
+function addEditFunction(editButton) {
+    editButton.addEventListener("click", (e) => {
+        editCategoryDialog.showModal();
+        editCategoryForm.addEventListener("submit", function changeName(e) {
+            e.preventDefault();
+            editCategoryDialog.close();
+            const input = document.querySelector("#new-name");
+            const newName = input.value;
+            if (newName) {
+                const parent = editButton.parentElement;
+                if (parent) {
+                    const oldName = parent.children[0];
+                    oldName.innerText = newName;
+                }
+            }
+            editCategoryForm.removeEventListener("submit", changeName);
+            editCategoryForm.reset();
+        });
+    });
+}
+function addDeleteFunction(deleteButton) {
+    deleteButton.addEventListener("click", (e) => {
+        deleteCategoryDialog.showModal();
+        deleteCategoryForm.addEventListener("submit", function confirmDelete(e) {
+            e.preventDefault();
+            console.log(e.submitter);
+            const submittedButton = e.submitter;
+            if (submittedButton && submittedButton.value === "confirm") {
+                const parent = deleteButton.parentElement;
+                parent === null || parent === void 0 ? void 0 : parent.remove();
+                currentCategories--;
+            }
+            deleteCategoryForm.removeEventListener("submit", confirmDelete);
+            deleteCategoryDialog.close();
+        });
+    });
 }

@@ -39,7 +39,7 @@
 	<dialog id="category-dialog">
 		<form id="category-form">
 			<button id="close-category-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
-			<h2 id="dialogid">Add A New Category </h2>
+			<h2>Add A New Category </h2>
 			<field class="add-name">
 				<input type="name" name="name" id="name" placeholder="Category Name" maxlength="15" required>
 			</field>
@@ -51,7 +51,7 @@
 	<dialog id="item-dialog">
 		<form id="item-form">
 			<button id="close-item-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
-			<h2 id="dialogid">Add A New Todo Item </h2>
+			<h2>Add A New Todo Item </h2>
 			<field class="add-name">
 				<label for="title">Title: </label>
 				<input type="text" name="title" id="title" maxlength="15" required>
@@ -75,6 +75,29 @@
 			</field>
 		   
 			<button type="submit" class="submit-category">Add Category</button>
+	  </form>
+	</dialog>
+
+	<dialog id="edit-category">
+		<form id="category-edit-form">
+			<button id="close-edit-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<h2">Select A New Name</h2>
+			<field class="add-name">
+				<input type="name" name="new-name" id="new-name" placeholder="Category Name" minlength="1" maxlength="15" required>
+			</field>
+		   
+			<button type="submit" class="submit-category">Change Name</button>
+	  </form>
+	</dialog>
+
+	<dialog id="confirm-delete">
+		<form id="delete-form">
+			<h2>Are you sure you want to delete this?</h2>
+		
+			<menu>
+				<button type="submit" name="canenl" value="cancel">Cancel</button>
+				<button type="submit" name="confirm" value="confirm">Delete</button>
+			</menu>
 	  </form>
 	</dialog>
 
