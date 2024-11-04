@@ -1,8 +1,11 @@
+import { compareAsc, format } from "date-fns"; 
 
 const addItemButton = document.querySelector(".add-item") as HTMLButtonElement;
 const addItemDialog = document.querySelector("#item-dialog") as HTMLDialogElement;
 const addItemForm = document.querySelector("#item-form") as HTMLFormElement;
 const closeForm = document.querySelector("#close-item-dialog") as HTMLButtonElement;
+const editItemDialog = document.querySelector("#edit-item-dialog") as HTMLDialogElement;
+const editItemForm = document.querySelector("#edit-item-form") as HTMLFormElement;
 
 const itemList: Item[] = [];
 
@@ -34,8 +37,6 @@ function setupAddItems() {
 		const duedate = document.querySelector("#duedate") as HTMLInputElement;
 		const priority = document.querySelector("#priority") as HTMLInputElement;
 
-		console.log(priority);
-
 		const newItem = new Item(title.value, description.value, duedate.value, priority.value);
 		itemList.push(newItem);
 		displayItem(newItem);
@@ -52,6 +53,7 @@ function displayItem(item: Item) {
 
 	const todoItem = document.createElement("div");
 	todoItem.className = "todo-item";
+	todoItem.dataset.index = String(itemList.length - 1);
 
 	const title = document.createElement("h2");
 	title.innerText = item.title;
@@ -78,6 +80,7 @@ function displayItem(item: Item) {
 	const editButton = document.createElement("button");
 	editButton.className = "edit";
 	editButton.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`
+	addEditFunction(editButton);
 
 	const deleteButton = document.createElement("button");
 	deleteButton.className = "delete";
@@ -86,6 +89,60 @@ function displayItem(item: Item) {
 	itemButtons.append(expandButton, editButton, deleteButton);
 	todoItem.append(title, desc, date, prio, itemButtons);
 	list.appendChild(todoItem);
+}
+
+function addEditFunction(editButton: HTMLButtonElement) {
+	editButton.addEventListener("click", (e) => {
+		const parent = editButton.parentElement?.parentElement;
+
+		if (!parent) {
+			return;
+		}
+
+		const title = parent.querySelector(".title") as HTMLHeadingElement;
+		const description = parent.querySelector(".desc") as HTMLParagraphElement;
+		const duedate = parent.querySelector(".target-date") as HTMLParagraphElement;
+		const priority = parent.querySelector(".priority") as HTMLParagraphElement;
+
+		const editTitle = document.querySelector("#new-title") as HTMLInputElement;
+		const editDescription = document.querySelector("#new-description") as HTMLInputElement;
+		const editDuedate = document.querySelector("#new-duedate") as HTMLInputElement;
+		const editPriority = document.querySelector("#new-priority") as HTMLSelectElement;
+
+		editTitle.value = title.innerText;
+		editDescription.value = description.innerText;
+		editDuedate.value = duedate.innerText;
+		editPriority.value = priority.innerText;
+
+		editItemDialog.showModal();
+
+		editItemForm.addEventListener("submit", function edit(e) {
+			e.preventDefault();
+			title.innerText = editTitle.value;
+			description.innerText = editDescription.value;
+			duedate.innerText = editDuedate.value;
+			priority.innerText = editPriority.value;
+
+			
+
+			const parentIndex = parent.dataset.index;
+			if (parentIndex) {
+				const itemIndex = parseInt(parentIndex);
+
+				const item = itemList[itemIndex];
+				item.title = editTitle.value;
+				item.description = editDescription.value;
+				item.duedate = editDuedate.value;
+				item.priority = editPriority.value;
+			}
+
+			editItemDialog.close();
+			editItemForm.reset();
+			editItemForm.removeEventListener("submit", edit);
+			
+		})
+
+	})
 }
 
 export {setupAddItems}

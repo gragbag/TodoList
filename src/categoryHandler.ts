@@ -84,8 +84,6 @@ function addEditFunction(editButton: HTMLButtonElement) {
 			editCategoryForm.removeEventListener("submit", changeName);
 			editCategoryForm.reset();
 		});
-		
-		
 
 	})
 }

@@ -95,9 +95,39 @@
 			<h2>Are you sure you want to delete this?</h2>
 		
 			<menu>
-				<button type="submit" name="canenl" value="cancel">Cancel</button>
+				<button type="submit" name="cancel" value="cancel">Cancel</button>
 				<button type="submit" name="confirm" value="confirm">Delete</button>
 			</menu>
+	  </form>
+	</dialog>
+
+	<dialog id="edit-item-dialog">
+		<form id="edit-item-form">
+			<button id="close-item-dialog" type="submit" aria-label="close" formmethod="dialog" formnovalidate>X</button>
+			<h2>Edit This Item</h2>
+			<field class="edit-name">
+				<label for="new-title">Title: </label>
+				<input type="text" name="new-title" id="new-title" maxlength="15" required>
+			</field>
+			<field class="edit-description">
+				<label for="new-description">Description: </label>
+				<textarea name="new-description" id="new-description" rows="2" cols="50" maxlength="100"></textarea>
+				
+			</field>
+			<field class="edit-duedate">
+				<label for="new-duedate">Due Date: </label>
+				<input type="text" name="new-duedate" id="new-duedate" required>
+			</field>
+			<field class="edit-priority">
+				<label for="new-priority">Priority: </label>
+				<select name="new-priority" id="new-priority">
+					<option value="High">High</option>
+					<option value="Medium">Medium</option>
+					<option value="Low">Low</option>
+				</select>
+			</field>
+		   
+			<button type="submit" class="submit-category">Change</button>
 	  </form>
 	</dialog>
 

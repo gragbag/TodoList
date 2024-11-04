@@ -131,7 +131,7 @@ button {
 	font-size: 1.5em;
 }
 
-#item-form {
+form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
